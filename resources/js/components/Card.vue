@@ -16,21 +16,16 @@ export default {
     ],
     data: () => ({
         'resourceName':null,
-        'timer':null,
-        'timer_turned_on':false
+        'timer':false
     }),
     mounted() {
         this.resourceName = this.$router.currentRoute.params.resourceName;
     },
     methods:{
         setTimer(checked){
-            if(checked){
-                this.timer_turned_on = true;
-                setTimeout(this.reloadResources, 10000);
-            }
-            else if(this.timer !== null){
-                this.timer_turned_on = false;
-            }
+            this.timer = checked;
+            if(checked)
+                setTimeout(this.callAutoReload, 10000);
         },
         async reloadResources(){
             if(this.resourceName){
@@ -38,9 +33,14 @@ export default {
                 let filters_to_change = _.cloneDeep(filters_backup);
                 filters_to_change.push({});
                 await this.$store.commit(`${this.resourceName}/storeFilters`,filters_to_change);
-                await this.$store.commit(`${this.resourceName}/storeFilters`,filters_backup);
-                if(this.timer_turned_on === true)
-                    setTimeout(this.reloadResources, 10000);
+                await this.$store.commit(`${this.resourceName}/storeFilters`,filters_backup);       
+            }
+        },
+        callAutoReload(){
+            if(this.timer === true){
+                this.reloadResources().then(
+                    setTimeout(this.callAutoReload, 10000)
+                );
             }
         }
     }
