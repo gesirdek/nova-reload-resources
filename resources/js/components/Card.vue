@@ -24,12 +24,13 @@ export default {
     methods:{
         setTimer(checked){
             if(checked)
-               this.timer = setTimeout(this.reloadResources, 10000);
+               this.timer = setInterval(this.reloadResources, 10000);
             else if(this.timer !== null)
-                clearTimeout(this.timer);
+                clearInterval(this.timer);
         },
         async reloadResources(){
             if(this.resourceName){
+                console.log("resources loading...");
                 let filters_backup = _.cloneDeep(this.$store.getters[`${this.resourceName}/filters`]);
                 let filters_to_change = _.cloneDeep(filters_backup);
                 filters_to_change.push({});
