@@ -1,6 +1,6 @@
 {
-    "name": "tanmuhittin/nova-reload-resources",
-    "description": "Creates a Reload Resources button",
+    "name": "gesirdek/nova-reload-resources",
+    "description": "Creates a Reload Resources button and a autoreload option",
     "keywords": [
         "laravel",
         "nova"
