@@ -1,9 +1,9 @@
 <template>
     <card class="flex flex-col items-center justify-center p-1">
         <div class="mb-1">
-            <button class="text-center btn btn-primary btn-default" @click="reloadResources">{{ __('Reload Resources') }}</button>
-            <input type="checkbox" id="checkbox" v-model="checked">
-            <label for="checkbox">{{ this.resourceName }} {{ __('Load every 10 seconds') }}</label>
+            <button class="text-center btn btn-primary btn-default" @click="reloadResources">{{ __('Reload Resources') }}</button><br />
+            <input type="checkbox" id="checkbox" v-model="checked" @change="startTimer(checked)">
+            <label for="checkbox">{{ __('Load every 10 seconds') }}</label>
         </div>
     </card>
 </template>
