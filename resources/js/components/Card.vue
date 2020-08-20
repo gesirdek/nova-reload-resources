@@ -2,6 +2,8 @@
     <card class="flex flex-col items-center justify-center p-1">
         <div class="mb-1">
             <button class="text-center btn btn-primary btn-default" @click="reloadResources">{{ __('Reload Resources') }}</button>
+            <input type="checkbox" id="checkbox" v-model="checked">
+            <label for="checkbox">{{ this.resourceName }} {{ __('Load every 10 seconds') }}</label>
         </div>
     </card>
 </template>
@@ -12,12 +14,19 @@ export default {
         'card',
     ],
     data: () => ({
-        'resourceName':null
+        'resourceName':null,
+        'timer':null
     }),
     mounted() {
         this.resourceName = this.$router.currentRoute.params.resourceName;
     },
     methods:{
+        startTimer(checked){
+            if(checked)
+               this.timer = setTimeout(reloadResources, 10000);
+            else
+                clearTimeout(this.timer);
+        },
         async reloadResources(){
             if(this.resourceName){
                 let filters_backup = _.cloneDeep(this.$store.getters[`${this.resourceName}/filters`]);
