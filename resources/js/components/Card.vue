@@ -25,7 +25,7 @@ export default {
         setTimer(checked){
             if(checked)
                this.timer = setTimeout(this.reloadResources, 10000);
-            else if(timer !== null)
+            else if(this.timer !== null)
                 clearTimeout(this.timer);
         },
         async reloadResources(){
